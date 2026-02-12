@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @import url(https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/css/3dAlbum.css);
+  </style>
+</head>
+
+<body translate="no" class="disabled">
+  <div id="background"
+    style="--image: url(https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/images/king-gizzard_petrodragonic-apocalypse/background.webp); --depth: 0em;">
+    <div class="shadow"
+      style="background-image: url(&quot;https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/images/king-gizzard_petrodragonic-apocalypse/lizard.webp&quot;); --blur: 1.2em;">
+    </div>
+    <div class="shadow"
+      style="background-image: url(&quot;https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/images/king-gizzard_petrodragonic-apocalypse/landscape.webp&quot;); --blur: 0.5em;">
+    </div>
+  </div>
+  <div id="landscape"
+    style="--image: url(https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/images/king-gizzard_petrodragonic-apocalypse/landscape.webp); --depth: 5em;">
+    5<div class="shadow"
+      style="background-image: url(&quot;https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/images/king-gizzard_petrodragonic-apocalypse/lizard.webp&quot;); --blur: 0.7em;">
+    </div>
+  </div>
+  <div id="lizard"
+    style="--image: url(https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/images/king-gizzard_petrodragonic-apocalypse/lizard.webp); --depth: 12em;">
+    12</div>
+  <script id="rendered-js" type="module">
+    import { render3DAlbum } from "https://cdn.jsdelivr.net/gh/nils-keller-dev/cdn-resources@latest/js/3dAlbum.js";
+    render3DAlbum("king-gizzard_petrodragonic-apocalypse");
+  </script>
+</body>
+</html>

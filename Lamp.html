@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realistic Desk Lamp</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #1a1a2e;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background 0.8s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body.light-on {
+      background: #2d2d44;
+    }
+
+    /* Floor Shadow */
+    .floor-shadow {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 50px;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4), transparent);
+      border-radius: 50%;
+      transition: all 0.8s ease;
+    }
+
+    body.light-on .floor-shadow {
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2), transparent);
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    /* Lamp Container */
+    .lamp-wrapper {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Light Beam (when lamp is ON) */
+    .light-beam {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      opacity: 0;
+      transition: all 0.8s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .lamp-wrapper.on .light-beam {
+      opacity: 0.6;
+      clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
+      width: 350px;
+      height: 300px;
+      background: linear-gradient(180deg,
+          rgba(255, 230, 120, 0.8) 0%,
+          rgba(255, 230, 120, 0.4) 30%,
+          rgba(255, 230, 120, 0.1) 60%,
+          transparent 100%);
+      filter: blur(20px);
+    }
+
+    /* Lamp Head/Shade */
+    .lamp-head {
+      position: relative;
+      width: 140px;
+      height: 100px;
+      z-index: 5;
+    }
+
+    .lamp-shade-outer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #1c1c1c 0%, #2a2a2a 50%, #3a3a3a 100%);
+      clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+      box-shadow:
+        inset 0 -2px 10px rgba(0, 0, 0, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: all 0.5s ease;
+    }
+
+    .lamp-wrapper.on .lamp-shade-outer {
+      background: linear-gradient(180deg, #2a2a2a 0%, #3a3a3a 50%, #4a4a4a 100%);
+    }
+
+    /* Inner shade/reflector */
+    .lamp-shade-inner {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 70px;
+      background: linear-gradient(180deg, #f5f5f5 0%, #e0e0e0 100%);
+      clip-path: polygon(25% 0%, 75% 0%, 95% 100%, 5% 100%);
+      transition: all 0.5s ease;
+    }
+
+    .lamp-wrapper.on .lamp-shade-inner {
+      background: linear-gradient(180deg, #fffacd 0%, #ffe680 100%);
+      box-shadow:
+        inset 0 0 30px rgba(255, 230, 120, 0.8),
+        0 0 50px rgba(255, 230, 120, 0.4);
+    }
+
+    /* Light Bulb */
+    .bulb-container {
+      position: absolute;
+      top: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 70px;
+      z-index: 4;
+    }
+
+    .bulb {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #e8e8e8 40%, #c0c0c0);
+      clip-path: ellipse(50% 60% at 50% 45%);
+      transition: all 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+    }
+
+    .lamp-wrapper.on .bulb {
+      background: radial-gradient(circle at 30% 30%, #fffef0, #ffe680 40%, #ffd700);
+      filter: drop-shadow(0 0 30px rgba(255, 230, 120, 0.9));
+    }
+
+    /* Bulb Base */
+    .bulb-base {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 18px;
+      background: linear-gradient(180deg, #8a8a8a 0%, #5a5a5a 100%);
+      border-radius: 0 0 3px 3px;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    .bulb-base::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 2px;
+      background: #3a3a3a;
+      box-shadow: 0 3px 0 #3a3a3a, 0 6px 0 #3a3a3a;
+    }
+
+    /* Lamp Arm/Neck */
+    .lamp-arm {
+      position: absolute;
+      top: 95px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 140px;
+      background: linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+      border-radius: 6px;
+      box-shadow:
+        inset 2px 0 5px rgba(0, 0, 0, 0.5),
+        -2px 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 3;
+    }
+
+    .lamp-arm::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      background: radial-gradient(circle, #3a3a3a, #2a2a2a);
+      border-radius: 50%;
+      box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.5),
+        0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Lamp Base */
+    .lamp-base {
+      position: absolute;
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 60px;
+      z-index: 2;
+    }
+
+    .base-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 15px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+      border-radius: 60px / 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .base-middle {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 25px;
+      background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .base-top {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 30px;
+      background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+      clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Toggle Switch */
+    .switch-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .switch-label {
+      color: #a0a0a0;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: color 0.3s ease;
+    }
+
+    .lamp-wrapper.on~.switch-container .switch-label {
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+
+    .toggle-btn {
+      position: relative;
+      width: 90px;
+      height: 45px;
+      background: #2a2a2a;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow:
+        inset 0 2px 10px rgba(0, 0, 0, 0.5),
+        0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+      border: 2px solid #1a1a1a;
+    }
+
+    .toggle-btn::before {
+      content: 'OFF';
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn .slider {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 35px;
+      height: 35px;
+      background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
+      border-radius: 50%;
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.3),
+        inset 0 2px 5px rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+      box-shadow:
+        inset 0 2px 10px rgba(255, 215, 0, 0.3),
+        0 0 20px rgba(255, 215, 0, 0.4),
+        0 2px 5px rgba(0, 0, 0, 0.3);
+      border-color: #ffed4e;
+    }
+
+    .toggle-btn.active::before {
+      content: 'ON';
+      left: 15px;
+      right: auto;
+      color: #1a1a1a;
+      font-weight: 800;
+    }
+
+    .toggle-btn.active .slider {
+      left: 49px;
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.2),
+        inset 0 2px 5px rgba(255, 255, 255, 0.5);
+    }
+
+    .toggle-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .toggle-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Glow Effect around lamp when ON */
+    .ambient-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 230, 120, 0.15), transparent 70%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .lamp-wrapper.on~.ambient-glow {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .lamp-wrapper {
+        width: 250px;
+        height: 350px;
+      }
+
+      .lamp-head {
+        width: 120px;
+        height: 85px;
+      }
+
+      .lamp-wrapper.on .light-beam {
+        width: 300px;
+        height: 250px;
+      }
+
+      .lamp-arm {
+        height: 120px;
+      }
+
+      .lamp-base {
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="floor-shadow"></div>
+
+  <div class="container">
+
+    <div class="switch-container">
+      <span class="switch-label">Power</span>
+      <div class="toggle-btn" id="toggleBtn">
+        <div class="slider"></div>
+      </div>
+    </div>
+
+    <div class="lamp-wrapper" id="lamp">
+      <div class="light-beam"></div>
+
+      <div class="lamp-head">
+        <div class="lamp-shade-outer"></div>
+        <div class="lamp-shade-inner"></div>
+        <div class="bulb-container">
+          <div class="bulb"></div>
+          <div class="bulb-base"></div>
+        </div>
+      </div>
+
+      <div class="lamp-arm"></div>
+
+      <div class="lamp-base">
+        <div class="base-top"></div>
+        <div class="base-middle"></div>
+        <div class="base-bottom"></div>
+      </div>
+    </div>
+
+
+    <div class="ambient-glow"></div>
+  </div>
+
+  <script>
+    const lamp = document.getElementById('lamp');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const body = document.body;
+
+    toggleBtn.addEventListener('click', () => {
+      lamp.classList.toggle('on');
+      toggleBtn.classList.toggle('active');
+      body.classList.toggle('light-on');
+    });
+
+    // Add click sound effect (optional)
+    toggleBtn.addEventListener('click', () => {
+      // Small vibration on mobile
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    });
+  </script>
+</body>
+
+</html>

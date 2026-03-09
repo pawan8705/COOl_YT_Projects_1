@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creepy Button</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap" rel="stylesheet">
+  <style>
+    * {
+      border: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --hue: 223deg;
+      --gray1: hsl(223deg 10% 95%);
+      --gray9: hsl(223deg 10% 15%);
+      --black: hsl(0 0% 0%);
+      --primary3: hsl(223deg 90% 75%);
+      --primary5: hsl(223deg 90% 55%);
+      --primary6: hsl(223deg 90% 45%);
+      --trans-dur: 0.3s;
+      font-size: clamp(1.25rem, 1rem + 1.25vw, 2.5rem);
+    }
+
+    body {
+      font-family: 'Londrina Solid', sans-serif;
+      background-color: hsl(223deg 10% 95%);
+      color: hsl(223deg 10% 15%);
+      display: grid;
+      place-items: center;
+      height: 100vh;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: hsl(223deg 10% 15%);
+        color: hsl(223deg 10% 95%);
+      }
+    }
+
+    .creepy-btn {
+      background-color: var(--black);
+      border-radius: 1.25em;
+      color: var(--gray1);
+      cursor: pointer;
+      font-family: 'Londrina Solid', sans-serif;
+      font-size: 1em;
+      line-height: 1.5;
+      letter-spacing: 1px;
+      min-width: 9em;
+      outline: 0.1875em solid transparent;
+      position: relative;
+      transition: outline 0.1s linear;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .creepy-btn__cover {
+      background-color: var(--primary5);
+      border-radius: 1.25em;
+      box-shadow: 0 0 0 0.125em var(--black) inset;
+      display: block;
+      padding: 0.5em 1em;
+      position: relative;
+      transform-origin: 1.25em 50%;
+      transition:
+        background-color var(--trans-dur),
+        transform var(--trans-dur) cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .creepy-btn__eyes {
+      display: flex;
+      align-items: center;
+      gap: 0.375em;
+      position: absolute;
+      right: 1em;
+      bottom: 0.5em;
+      height: 0.75em;
+    }
+
+    .creepy-btn__eye {
+      animation: eye-blink 3s infinite;
+      background-color: var(--gray1);
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      width: 0.75em;
+      height: 0.75em;
+    }
+
+    .creepy-btn__pupil {
+      aspect-ratio: 1;
+      background-color: var(--black);
+      border-radius: 50%;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0.375em;
+      transform: translate(-50%, -50%);
+    }
+
+    .creepy-btn:focus-visible {
+      outline: 0.1875em solid var(--primary3);
+    }
+
+    .creepy-btn:hover .creepy-btn__cover {
+      background-color: var(--primary6);
+      transform: rotate(-12deg);
+      transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1.65);
+    }
+
+    .creepy-btn:focus-visible .creepy-btn__cover {
+      background-color: var(--primary6);
+      transform: rotate(-12deg);
+      transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1.65);
+    }
+
+    .creepy-btn:active .creepy-btn__cover {
+      transform: rotate(0);
+      transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    @keyframes eye-blink {
+
+      0%,
+      92%,
+      100% {
+        animation-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
+        height: 0.75em;
+      }
+
+      96% {
+        animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+        height: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="creepy-btn" type="button" id="creepyBtn">
+    <span class="creepy-btn__eyes" id="creepyEyes">
+      <span class="creepy-btn__eye">
+        <span class="creepy-btn__pupil" id="pupil1"></span>
+      </span>
+      <span class="creepy-btn__eye">
+        <span class="creepy-btn__pupil" id="pupil2"></span>
+      </span>
+    </span>
+    <span class="creepy-btn__cover">Button</span>
+  </button>
+
+  <script>
+    const btn = document.getElementById('creepyBtn');
+    const eyes = document.getElementById('creepyEyes');
+    const pupil1 = document.getElementById('pupil1');
+    const pupil2 = document.getElementById('pupil2');
+
+    function updateEyes(clientX, clientY) {
+      const eyesRect = eyes.getBoundingClientRect();
+      const eyesCenterX = eyesRect.left + eyesRect.width / 2;
+      const eyesCenterY = eyesRect.top + eyesRect.height / 2;
+
+      const dx = clientX - eyesCenterX;
+      const dy = clientY - eyesCenterY;
+      const angle = Math.atan2(-dy, dx) + Math.PI / 2;
+
+      const visionRangeX = 180;
+      const visionRangeY = 75;
+      const distance = Math.hypot(dx, dy);
+      const x = Math.sin(angle) * distance / visionRangeX;
+      const y = Math.cos(angle) * distance / visionRangeY;
+
+      const translateX = (-50 + x * 50) + '%';
+      const translateY = (-50 + y * 50) + '%';
+      const transform = 'translate(' + translateX + ', ' + translateY + ')';
+
+      pupil1.style.transform = transform;
+      pupil2.style.transform = transform;
+    }
+
+    btn.addEventListener('mousemove', function (e) {
+      updateEyes(e.clientX, e.clientY);
+    });
+
+    btn.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+      updateEyes(e.touches[0].clientX, e.touches[0].clientY);
+    });
+  </script>
+
+</body>
+
+</html>

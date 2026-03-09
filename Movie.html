@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>CineVault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --red: #e63946;
+      --gold: #f4a261;
+      --bg: #07070d;
+      --surface: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f0ece4;
+      --muted: rgba(240, 236, 228, 0.4);
+      --card-h: 380px;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Noise grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 88vh;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    #hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      transition: all 1.2s cubic-bezier(.23, 1, .32, 1);
+      transform: scale(1.04);
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, var(--bg) 0%, rgba(7, 7, 13, 0.6) 40%, rgba(7, 7, 13, 0.1) 100%),
+        linear-gradient(to right, rgba(7, 7, 13, 0.9) 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      padding: 0 5rem 4rem;
+      max-width: 640px;
+    }
+
+    .hero-genre-tags {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .genre-chip {
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    #hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: .95;
+      letter-spacing: .02em;
+      text-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+      margin-bottom: 1rem;
+    }
+
+    #hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: .9rem;
+    }
+
+    #hero-meta .rating-val {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: .85rem;
+    }
+
+    #hero-synopsis {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: rgba(240, 236, 228, 0.6);
+      margin-bottom: 1.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.6rem;
+      border-radius: 10px;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .22s;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 4px 28px rgba(230, 57, 70, .4);
+    }
+
+    .btn-primary:hover {
+      background: #ff4d5a;
+      box-shadow: 0 6px 36px rgba(230, 57, 70, .6);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(1px) !important;
+    }
+
+    /* Hero dots */
+    .hero-dots {
+      position: absolute;
+      bottom: 2rem;
+      right: 5rem;
+      display: flex;
+      gap: .5rem;
+      z-index: 10;
+    }
+
+    .dot-btn {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all .3s;
+    }
+
+    .dot-btn.active {
+      width: 28px;
+      background: var(--red);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 5rem;
+      transition: background .4s, backdrop-filter .4s;
+    }
+
+    nav.scrolled {
+      background: rgba(7, 7, 13, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: .15em;
+      background: linear-gradient(135deg, #fff 30%, var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Search */
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap input {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: .82rem;
+      padding: .55rem 1rem .55rem 2.4rem;
+      width: 220px;
+      outline: none;
+      transition: all .25s;
+    }
+
+    .search-wrap input::placeholder {
+      color: var(--muted);
+    }
+
+    .search-wrap input:focus {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      width: 260px;
+    }
+
+    .search-wrap .si {
+      position: absolute;
+      left: .75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: .78rem;
+      pointer-events: none;
+    }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem .9rem;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: .72rem;
+      color: var(--muted);
+    }
+
+    .stat-pill span {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── MAIN SECTION ── */
+    main {
+      padding: 3rem 5rem 5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: .1em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin: 0 1.2rem;
+    }
+
+    /* Filter row */
+    .filter-row {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .fpill {
+      padding: 6px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none;
+    }
+
+    .fpill:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text);
+    }
+
+    .fpill.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    /* ── CARD GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .movie-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      height: var(--card-h);
+      cursor: pointer;
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, .45);
+      transition: transform .38s cubic-bezier(.23, 1, .32, 1), box-shadow .38s, opacity .4s;
+      animation: fadeUp .5s both;
+    }
+
+    .movie-card.hidden {
+      display: none;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .movie-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, .7);
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      transition: transform .55s cubic-bezier(.23, 1, .32, 1);
+    }
+
+    .movie-card:hover .card-bg {
+      transform: scale(1.08);
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7, 7, 13, 1) 0%, rgba(7, 7, 13, .65) 50%, rgba(7, 7, 13, .05) 100%);
+    }
+
+    /* Watched ribbon */
+    .ribbon {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 11px;
+      border-radius: 6px;
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      z-index: 4;
+    }
+
+    .ribbon.watched {
+      background: rgba(230, 57, 70, .2);
+      border: 1px solid rgba(230, 57, 70, .4);
+      color: var(--red);
+    }
+
+    .ribbon.unwatched {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: rgba(255, 255, 255, .5);
+    }
+
+    /* Wishlist btn */
+    .wish-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 4;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(7, 7, 13, .6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--muted);
+      font-size: .75rem;
+    }
+
+    .wish-btn:hover,
+    .wish-btn.active {
+      background: rgba(230, 57, 70, .2);
+      border-color: rgba(230, 57, 70, .4);
+      color: var(--red);
+    }
+
+    .card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.2rem;
+      z-index: 5;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .4rem;
+      font-size: .65rem;
+      color: var(--muted);
+    }
+
+    .card-genre {
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(244, 162, 97, .12);
+      border: 1px solid rgba(244, 162, 97, .2);
+      color: var(--gold);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: .04em;
+      line-height: 1;
+      margin-bottom: .35rem;
+    }
+
+    .card-stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .card-stars i {
+      font-size: .55rem;
+      color: var(--gold);
+    }
+
+    .card-stars i.empty {
+      color: rgba(255, 255, 255, .15);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: .5rem;
+      margin-top: .8rem;
+    }
+
+    .card-btn {
+      flex: 1;
+      padding: .6rem;
+      border-radius: 8px;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+    }
+
+    .card-btn.play {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 2px 16px rgba(230, 57, 70, .3);
+    }
+
+    .card-btn.play:hover {
+      background: #ff4d5a;
+    }
+
+    .card-btn.info {
+      background: rgba(255, 255, 255, .07);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .card-btn.info:hover {
+      background: rgba(255, 255, 255, .12);
+      color: var(--text);
+    }
+
+    /* ── MODAL ── */
+    #modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(7, 7, 13, 0.85);
+      backdrop-filter: blur(18px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    #modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #modal {
+      position: relative;
+      width: min(860px, 92vw);
+      background: linear-gradient(145deg, #10101a, #0c0c14);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, .8);
+      transform: scale(.94) translateY(20px);
+      transition: transform .35s cubic-bezier(.23, 1, .32, 1);
+    }
+
+    #modal-overlay.open #modal {
+      transform: scale(1) translateY(0);
+    }
+
+    #modal-hero {
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    #modal-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, #10101a 100%);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .15);
+      background: rgba(7, 7, 13, .7);
+      backdrop-filter: blur(8px);
+      color: var(--text);
+      font-size: .85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(230, 57, 70, .3);
+      border-color: var(--red);
+    }
+
+    #modal-body {
+      padding: 1.6rem 2rem 2rem;
+    }
+
+    .modal-tags {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: .8rem;
+    }
+
+    .modal-tag {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: .62rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      background: rgba(244, 162, 97, .1);
+      border: 1px solid rgba(244, 162, 97, .2);
+      color: var(--gold);
+    }
+
+    #modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      letter-spacing: .04em;
+      line-height: 1;
+      margin-bottom: .6rem;
+    }
+
+    .modal-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .modal-rating-val {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: .9rem;
+    }
+
+    #modal-synopsis {
+      font-size: .85rem;
+      line-height: 1.75;
+      color: rgba(240, 236, 228, .65);
+      margin-bottom: 1.4rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: .75rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+      grid-column: 1/-1;
+    }
+
+    .empty i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      opacity: .3;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, .08);
+      border-radius: 3px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px) {
+
+      nav,
+      main {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .hero-content {
+        padding: 0 1.5rem 3rem;
+      }
+
+      .hero-dots {
+        right: 1.5rem;
+      }
+
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media(max-width:600px) {
+      nav {
+        padding: .9rem 1.2rem;
+      }
+
+      .search-wrap input {
+        width: 160px;
+      }
+
+      .search-wrap input:focus {
+        width: 180px;
+      }
+
+      #hero-title {
+        font-size: 2.8rem;
+      }
+
+      #modal-body {
+        padding: 1rem 1.2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="logo">CineVault</div>
+    <div class="nav-right">
+      <div class="search-wrap">
+        <i class="fas fa-search si"></i>
+        <input type="text" id="searchInput" placeholder="Search movies…" />
+      </div>
+      <div class="stat-pill" id="watchedCount">
+        <i class="fas fa-eye" style="font-size:.65rem;color:var(--red)"></i>
+        <span id="wc">0</span> watched
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div id="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-genre-tags" id="hero-chips"></div>
+      <div id="hero-title"></div>
+      <div id="hero-meta"></div>
+      <div id="hero-synopsis"></div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="hero-watch-btn"><i class="fas fa-play"></i> Watch Now</button>
+        <button class="btn btn-secondary" id="hero-info-btn"><i class="fas fa-circle-info"></i> More Info</button>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+    <div class="section-header">
+      <div class="section-title">All Movies</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="filter-row" id="filterRow">
+      <div class="fpill active" data-filter="all">All</div>
+      <div class="fpill" data-filter="watched">Watched</div>
+      <div class="fpill" data-filter="unwatched">Unwatched</div>
+      <div class="fpill" data-filter="wishlist">❤ Wishlist</div>
+      <div class="fpill" data-filter="Action">Action</div>
+      <div class="fpill" data-filter="Animation">Animation</div>
+      <div class="fpill" data-filter="Sci-Fi">Sci-Fi</div>
+      <div class="fpill" data-filter="Drama">Drama</div>
+      <div class="fpill" data-filter="Thriller">Thriller</div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal-overlay">
+    <div id="modal">
+      <div id="modal-hero">
+        <button class="modal-close" id="modalClose"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div id="modal-body">
+        <div class="modal-tags" id="modal-tags"></div>
+        <div id="modal-title"></div>
+        <div class="modal-meta" id="modal-meta"></div>
+        <div id="modal-synopsis"></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="modal-play"><i class="fas fa-play"></i> Play</button>
+          <button class="btn btn-secondary" id="modal-wish"><i class="fas fa-heart"></i> Wishlist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const movieDB = [
+      {
+        title: "Toy Story", rating: 4, hasWatched: true, runtime: 81, year: 1995, genres: ["Animation", "Family", "Comedy"],
+        synopsis: "A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room. Their rivalry soon turns into an adventure when they end up far from home.",
+        bg: "https://play-lh.googleusercontent.com/proxy/yUN1bb-QNudQPDsWHaVkw7NZEcPu6tx87xFBhjfwJSi84HAwPQaG3wfEK4562BSAPEG1NdL6f94fg_HkZEmFVoLOoT-EDhq9tZPBmNkGz87sM_oVxg=s1920-w1920-h1080"
+      },
+      {
+        title: "The Incredibles 2", rating: 5, hasWatched: false, runtime: 118, year: 2018, genres: ["Animation", "Action", "Sci-Fi"],
+        synopsis: "Helen is called on to lead a campaign to bring Supers back, while Bob navigates the day-to-day heroics of normal life at home. Baby Jack-Jack's superpowers are about to be discovered.",
+        bg: "https://www.verdict.co.uk/wp-content/uploads/2018/07/incredibles-2-1200-1200-675-675-crop-000000.jpg"
+      },
+      {
+        title: "Spider-Man: Homecoming", rating: 3.5, hasWatched: true, runtime: 133, year: 2017, genres: ["Action", "Sci-Fi"],
+        synopsis: "Peter Parker balances life as an ordinary high school student with his superhero alter-ego Spider-Man, finding himself on the trail of a new menace prowling the skies of New York City.",
+        bg: "https://images8.alphacoders.com/815/815755.jpg"
+      },
+      {
+        title: "The Avengers", rating: 2.5, hasWatched: false, runtime: 143, year: 2012, genres: ["Action", "Sci-Fi"],
+        synopsis: "Earth's mightiest heroes must come together and learn to fight as a team to stop the mischievous Loki and his alien army from enslaving humanity.",
+        bg: "https://www.pluggedin.com/wp-content/uploads/2019/12/the-avengers-review-image-1200x688.jpg"
+      },
+      {
+        title: "Interstellar", rating: 5, hasWatched: true, runtime: 169, year: 2014, genres: ["Sci-Fi", "Drama", "Thriller"],
+        synopsis: "When Earth becomes uninhabitable, a team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival. A breathtaking odyssey across dimensions of time and love.",
+        bg: "https://images.alphacoders.com/685/685927.jpg"
+      },
+      {
+        title: "The Dark Knight", rating: 5, hasWatched: true, runtime: 152, year: 2008, genres: ["Action", "Drama", "Thriller"],
+        synopsis: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+        bg: "https://images.alphacoders.com/488/488641.jpg"
+      },
+      {
+        title: "Inception", rating: 4.5, hasWatched: false, runtime: 148, year: 2010, genres: ["Sci-Fi", "Thriller", "Action"],
+        synopsis: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O. — but his tragic past may doom the mission.",
+        bg: "https://images2.alphacoders.com/679/679781.jpg"
+      },
+      {
+        title: "Parasite", rating: 5, hasWatched: true, runtime: 132, year: 2019, genres: ["Drama", "Thriller"],
+        synopsis: "A poor family schemes to become employed by a wealthy family, infiltrating their household by posing as unrelated, highly qualified individuals. What follows is a darkly comedic spiral into obsession and violence.",
+        bg: "https://images6.alphacoders.com/103/1034765.jpg"
+      },
+      {
+        title: "Dune: Part Two", rating: 4.5, hasWatched: false, runtime: 167, year: 2024, genres: ["Sci-Fi", "Drama", "Action"],
+        synopsis: "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family. Facing a fateful choice between the love of his life and the fate of the known universe.",
+        bg: "https://images7.alphacoders.com/134/1342855.jpg"
+      },
+      {
+        title: "Oppenheimer", rating: 4, hasWatched: true, runtime: 180, year: 2023, genres: ["Drama", "Thriller"],
+        synopsis: "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II — a triumph that would haunt him for the rest of his life.",
+        bg: "https://images4.alphacoders.com/130/1301833.jpg"
+      }
+    ];
+
+    let wishlist = new Set();
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let heroIndex = 0;
+    let heroTimer;
+
+    // ── STARS
+    function stars(r) {
+      let h = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(r)) h += '<i class="fas fa-star"></i>';
+        else if (i - 0.5 <= r) h += '<i class="fas fa-star-half-alt"></i>';
+        else h += '<i class="far fa-star empty"></i>';
+      }
+      return h;
+    }
+
+    // ── HERO
+    const heroMovies = movieDB.filter(m => m.rating >= 4.5);
+
+    function setHero(idx) {
+      heroIndex = idx;
+      const m = heroMovies[idx];
+      document.getElementById('hero-bg').style.backgroundImage = `url('${m.bg}')`;
+      document.getElementById('hero-title').textContent = m.title;
+      document.getElementById('hero-chips').innerHTML = m.genres.map(g => `<span class="genre-chip">${g}</span>`).join('');
+      document.getElementById('hero-meta').innerHTML = `
+    <span class="rating-val"><i class="fas fa-star" style="font-size:.7rem;color:var(--gold)"></i> ${m.rating}/5</span>
+    <span>·</span><span>${m.year}</span>
+    <span>·</span><span>${m.runtime} min</span>
+    <span>·</span><span>${m.hasWatched ? '<span style="color:var(--red)">✓ Watched</span>' : 'Unwatched'}</span>
+  `;
+      document.getElementById('hero-synopsis').textContent = m.synopsis;
+      document.getElementById('hero-watch-btn').innerHTML = `<i class="fas fa-play"></i> ${m.hasWatched ? 'Watch Again' : 'Watch Now'}`;
+
+      // dots
+      document.querySelectorAll('.dot-btn').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+
+      clearTimeout(heroTimer);
+      heroTimer = setTimeout(() => setHero((idx + 1) % heroMovies.length), 5000);
+    }
+
+    function buildHeroDots() {
+      const wrap = document.getElementById('heroDots');
+      wrap.innerHTML = '';
+      heroMovies.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'dot-btn' + (i === 0 ? ' active' : '');
+        d.onclick = () => setHero(i);
+        wrap.appendChild(d);
+      });
+    }
+
+    document.getElementById('hero-info-btn').onclick = () => openModal(heroMovies[heroIndex]);
+    document.getElementById('hero-watch-btn').onclick = () => openModal(heroMovies[heroIndex]);
+
+    // ── CARDS
+    function createCard(m, delay) {
+      const card = document.createElement('div');
+      card.className = 'movie-card';
+      card.style.animationDelay = delay + 's';
+
+      const wishedClass = wishlist.has(m.title) ? 'active' : '';
+
+      card.innerHTML = `
+    <div class="card-bg" style="background-image:url('${m.bg}')"></div>
+    <div class="card-overlay"></div>
+    <div class="ribbon ${m.hasWatched ? 'watched' : 'unwatched'}">${m.hasWatched ? '✓ Watched' : '+ Unwatched'}</div>
+    <div class="wish-btn ${wishedClass}" data-title="${m.title}"><i class="fas fa-heart"></i></div>
+    <div class="card-content">
+      <div class="card-meta-row">
+        <span class="card-genre">${m.genres[0]}</span>
+        <span>${m.year}</span>
+        <span>·</span>
+        <span>${m.runtime}m</span>
+      </div>
+      <div class="card-title">${m.title}</div>
+      <div class="card-stars">${stars(m.rating)}</div>
+      <div class="card-actions">
+        <button class="card-btn play"><i class="fas fa-play"></i> ${m.hasWatched ? 'Again' : 'Watch'}</button>
+        <button class="card-btn info"><i class="fas fa-circle-info"></i> Info</button>
+      </div>
+    </div>
+  `;
+
+      card.querySelector('.wish-btn').onclick = e => {
+        e.stopPropagation();
+        const btn = e.currentTarget;
+        if (wishlist.has(m.title)) { wishlist.delete(m.title); btn.classList.remove('active'); }
+        else { wishlist.add(m.title); btn.classList.add('active'); }
+        if (currentFilter === 'wishlist') renderCards();
+      };
+
+      card.querySelector('.card-btn.info').onclick = e => { e.stopPropagation(); openModal(m); };
+      card.querySelector('.card-btn.play').onclick = e => { e.stopPropagation(); openModal(m); };
+
+      return card;
+    }
+
+    function getFiltered() {
+      return movieDB.filter(m => {
+        const matchSearch = m.title.toLowerCase().includes(currentSearch.toLowerCase());
+        let matchFilter = true;
+        if (currentFilter === 'watched') matchFilter = m.hasWatched;
+        else if (currentFilter === 'unwatched') matchFilter = !m.hasWatched;
+        else if (currentFilter === 'wishlist') matchFilter = wishlist.has(m.title);
+        else if (currentFilter !== 'all') matchFilter = m.genres.includes(currentFilter);
+        return matchSearch && matchFilter;
+      });
+    }
+
+    function renderCards() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      const filtered = getFiltered();
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="empty"><i class="fas fa-film"></i>No movies found</div>`;
+        return;
+      }
+      filtered.forEach((m, i) => grid.appendChild(createCard(m, i * 0.06)));
+      updateStats();
+    }
+
+    function updateStats() {
+      document.getElementById('wc').textContent = movieDB.filter(m => m.hasWatched).length;
+    }
+
+    // ── MODAL
+    function openModal(m) {
+      const ov = document.getElementById('modal-overlay');
+      document.getElementById('modal-hero').style.backgroundImage = `url('${m.bg}')`;
+      document.getElementById('modal-title').textContent = m.title;
+      document.getElementById('modal-tags').innerHTML = m.genres.map(g => `<span class="modal-tag">${g}</span>`).join('');
+      document.getElementById('modal-meta').innerHTML = `
+    <span class="modal-rating-val"><i class="fas fa-star" style="font-size:.72rem"></i> ${m.rating}/5</span>
+    <span>·</span><span>${m.year}</span>
+    <span>·</span><span>${m.runtime} min</span>
+    <span>·</span><span>${m.hasWatched ? '<span style="color:var(--red)">✓ Watched</span>' : 'Not Watched'}</span>
+  `;
+      document.getElementById('modal-synopsis').textContent = m.synopsis;
+
+      const wishBtn = document.getElementById('modal-wish');
+      wishBtn.innerHTML = `<i class="fas fa-heart"></i> ${wishlist.has(m.title) ? 'Wishlisted' : 'Wishlist'}`;
+      wishBtn.style.color = wishlist.has(m.title) ? 'var(--red)' : '';
+      wishBtn.onclick = () => {
+        if (wishlist.has(m.title)) { wishlist.delete(m.title); }
+        else { wishlist.add(m.title); }
+        wishBtn.innerHTML = `<i class="fas fa-heart"></i> ${wishlist.has(m.title) ? 'Wishlisted' : 'Wishlist'}`;
+        wishBtn.style.color = wishlist.has(m.title) ? 'var(--red)' : '';
+        renderCards();
+      };
+
+      ov.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modalClose').onclick = closeModal;
+    document.getElementById('modal-overlay').onclick = e => { if (e.target === e.currentTarget) closeModal(); };
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── FILTERS
+    document.querySelectorAll('.fpill').forEach(p => {
+      p.onclick = () => {
+        document.querySelectorAll('.fpill').forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+        currentFilter = p.dataset.filter;
+        renderCards();
+      };
+    });
+
+    // ── SEARCH
+    document.getElementById('searchInput').oninput = e => {
+      currentSearch = e.target.value;
+      renderCards();
+    };
+
+    // ── SCROLL NAV
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
+    });
+
+    // ── INIT
+    buildHeroDots();
+    setHero(0);
+    renderCards();
+  </script>
+</body>
+
+</html>

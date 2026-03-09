@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pawan Tripathi — Frontend Developer Portfolio" />
+  <title>Tripathidevlab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+     PAGE LOADER
+============================================================ -->
+  <div id="loader">
+    <div class="loader-name">PT</div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar"></div>
+    </div>
+    <div class="loader-text">Loading Portfolio...</div>
+  </div>
+
+  <!-- ============================================================
+     TOAST CONTAINER
+============================================================ -->
+  <div id="toast-container"></div>
+
+  <!-- ============================================================
+     NAVBAR
+============================================================ -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">PT.</a>
+    <ul class="nav-links">
+      <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+      <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+      <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+      <li><a href="#journey" class="nav-link" data-section="journey">Journey</a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+    </ul>
+    <a href="mailto:tripathipawan8705@gmail.com" class="nav-cta neu-btn">Hire Me →</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#journey" class="nav-link">Journey</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+
+  <!-- ============================================================
+     HERO
+============================================================ -->
+  <section id="hero">
+    <div class="hero-bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-grid-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-left reveal">
+        <div class="hero-status">
+          <span class="status-dot"></span>
+          Open to Opportunities
+        </div>
+        <h1 class="hero-name">
+          Hi, I'm<br>
+          <span class="gradient-text">Ramu</span><br>
+          Tripathi
+        </h1>
+        <p class="hero-tagline">
+          <span id="typed-text"></span><span class="typed-cursor"></span>
+        </p>
+        <p class="hero-bio">
+          Passionate Frontend Developer from Uttarakhand, India. I blend clean code with creative design — turning
+          complex ideas into seamless digital experiences.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary">
+            <span>View My Work</span>
+            <span>→</span>
+          </a>
+          <a href="#contact" class="btn-secondary">
+            <span>Let's Talk</span>
+            <span>💬</span>
+          </a>
+        </div>
+        <div class="hero-socials">
+          <a href="https://github.com" target="_blank" rel="noopener" class="social-pill">
+            <span class="social-icon">⚡</span> GitHub
+          </a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener" class="social-pill">
+            <span class="social-icon">💼</span> LinkedIn
+          </a>
+          <a href="https://youtube.comb" target="_blank" rel="noopener" class="social-pill">
+            <span class="social-icon">🎬</span> YouTube
+          </a>
+          <a href="https://codepen.io" target="_blank" rel="noopener" class="social-pill">
+            <span class="social-icon">🖊️</span> CodePen
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-right reveal reveal-delay-2">
+        <div class="hero-card">
+          <span class="hero-card-badge">✅ Available Now</span>
+          <div class="hero-avatar-wrap">
+            <div class="hero-avatar-inner">PT</div>
+          </div>
+          <div class="hero-card-name">Ramu Tripathi</div>
+          <div class="hero-card-role">Frontend Developer · React.js</div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-val">7+</div>
+              <div class="hero-stat-label">Projects</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">10+</div>
+              <div class="hero-stat-label">Repos</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">20+</div>
+              <div class="hero-stat-label">Technologies</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">∞</div>
+              <div class="hero-stat-label">Coffee ☕</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     ABOUT
+============================================================ -->
+  <section id="about">
+    <div class="section-badge reveal">About Me</div>
+    <h2 class="section-title reveal reveal-delay-1">The Developer<br><span class="gradient-text">Behind The Code</span>
+    </h2>
+    <div class="about-grid">
+      <div class="about-visual reveal reveal-delay-2">
+        <div class="about-card-main neu-raised">
+          <span class="big-letter">RT</span>
+          <p>India 🇮🇳</p>
+          <p style="margin-top:8px;">+91 647473431</p>
+        </div>
+        <div class="about-info-cards">
+          <div class="info-card neu-raised-sm">
+            <div class="info-card-icon">📍</div>
+            <div>
+              <div class="info-card-label">Location</div>
+              <div class="info-card-val">Uttarakhand, India</div>
+            </div>
+          </div>
+          <div class="info-card neu-raised-sm">
+            <div class="info-card-icon">🎓</div>
+            <div>
+              <div class="info-card-label">Education</div>
+              <div class="info-card-val">BCA — UOU</div>
+            </div>
+          </div>
+          <div class="info-card neu-raised-sm">
+            <div class="info-card-icon">💼</div>
+            <div>
+              <div class="info-card-label">Status</div>
+              <div class="info-card-val" style="color: var(--accent3);">Open to Work</div>
+            </div>
+          </div>
+          <div class="info-card neu-raised-sm">
+            <div class="info-card-icon">🚀</div>
+            <div>
+              <div class="info-card-label">Specialty</div>
+              <div class="info-card-val">React.js · UI/UX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-3">
+        <p>
+          I'm <strong>Ramu Tripathi</strong>, a passionate Frontend Developer dedicated to crafting pixel-perfect,
+          high-performance web applications. I blend clean code with creative design — turning complex ideas into
+          seamless digital experiences.
+        </p>
+        <p>
+          With expertise in <strong>React.js, Tailwind CSS, GSAP, and Framer Motion</strong>, I create immersive web
+          experiences that not only look stunning but also perform exceptionally. I'm also exploring AI-powered
+          development with tools like Claude AI and Lovable.
+        </p>
+        <p>
+          I run <strong>TripathiDevLab</strong> — a personal dev lab where I build, experiment with, and deploy
+          full-featured web apps, sharing knowledge on YouTube and social media with a growing developer community.
+        </p>
+        <div class="about-highlights">
+          <span class="highlight-tag">⚡ React.js</span>
+          <span class="highlight-tag">🎨 UI/UX Design</span>
+          <span class="highlight-tag">🤖 AI Dev Tools</span>
+          <span class="highlight-tag">🔥 GSAP Animations</span>
+          <span class="highlight-tag">📱 Responsive Design</span>
+          <span class="highlight-tag">🌐 Firebase</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     SKILLS
+============================================================ -->
+  <section id="skills">
+    <div class="section-badge reveal">Technical Skills</div>
+    <h2 class="section-title reveal reveal-delay-1">What I<br><span class="gradient-text">Work With</span></h2>
+    <p class="section-sub reveal reveal-delay-2">A comprehensive toolkit built through hands-on projects, continuous
+      learning, and real-world problem solving.</p>
+
+    <div class="skills-grid">
+      <!-- Core Languages -->
+      <div class="skill-category-card reveal" data-delay="0">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon">💻</div>
+          <div class="skill-cat-name">Core Languages</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">HTML5</span><span class="skill-pct">95%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="95"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">CSS3</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="90"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">JavaScript (ES6+)</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="85"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">TypeScript</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="70"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frameworks -->
+      <div class="skill-category-card reveal reveal-delay-1">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon">⚛️</div>
+          <div class="skill-cat-name">Frameworks & Libraries</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">React.js</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="85" style="background: linear-gradient(90deg, #38bdf8, #0ea5e9);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Framer Motion</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="75" style="background: linear-gradient(90deg, #38bdf8, #0ea5e9);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">GSAP</span><span class="skill-pct">65%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="65" style="background: linear-gradient(90deg, #38bdf8, #0ea5e9);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Redux Toolkit</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="70" style="background: linear-gradient(90deg, #38bdf8, #0ea5e9);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Styling -->
+      <div class="skill-category-card reveal reveal-delay-2">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon">🎨</div>
+          <div class="skill-cat-name">Styling</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Tailwind CSS</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="90" style="background: linear-gradient(90deg, #34d399, #10b981);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Bootstrap</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="80" style="background: linear-gradient(90deg, #34d399, #10b981);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">ShadCN/UI</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="75" style="background: linear-gradient(90deg, #34d399, #10b981);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Material UI</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="70" style="background: linear-gradient(90deg, #34d399, #10b981);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="skill-category-card reveal reveal-delay-3">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon">🛠️</div>
+          <div class="skill-cat-name">Tools & Platforms</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Git & GitHub</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="80" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Firebase</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="75" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">REST APIs / Axios</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="80" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Vercel / Netlify</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="85" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Tools -->
+      <div class="skill-category-card reveal reveal-delay-4">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon">🤖</div>
+          <div class="skill-cat-name">AI Development Tools</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Claude AI</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="90" style="background: linear-gradient(90deg, #f472b6, #ec4899);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Lovable</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="85" style="background: linear-gradient(90deg, #f472b6, #ec4899);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Emergent</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="75" style="background: linear-gradient(90deg, #f472b6, #ec4899);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Replit</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="70" style="background: linear-gradient(90deg, #f472b6, #ec4899);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- State Mgmt -->
+      <div class="skill-category-card reveal reveal-delay-5">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon">🔄</div>
+          <div class="skill-cat-name">State Management</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Context API</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="80" style="background: linear-gradient(90deg, #a78bfa, #8b5cf6);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Redux Toolkit</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="70" style="background: linear-gradient(90deg, #a78bfa, #8b5cf6);"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta"><span class="skill-name">Zustand</span><span class="skill-pct">65%</span></div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" data-width="65" style="background: linear-gradient(90deg, #a78bfa, #8b5cf6);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     PROJECTS
+============================================================ -->
+  <section id="projects">
+    <div class="section-badge reveal">My Work</div>
+    <h2 class="section-title reveal reveal-delay-1">Featured<br><span class="gradient-text">Projects</span></h2>
+    <p class="section-sub reveal reveal-delay-2">Real-world applications built with modern technologies, focused on
+      performance and user experience.</p>
+
+    <div class="projects-filter reveal reveal-delay-3">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="Full Stack">Full Stack</button>
+      <button class="filter-btn" data-filter="Dashboard">Dashboard</button>
+      <button class="filter-btn" data-filter="E-Commerce">E-Commerce</button>
+      <button class="filter-btn" data-filter="Landing Page">Landing Page</button>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+      <div class="project-card featured reveal" data-category="Full Stack"
+        style="--card-accent: linear-gradient(90deg, #10b981, #059669);">
+        <div class="project-header">
+          <div class="project-icon">🏥</div>
+          <span class="project-featured-badge">Featured</span>
+        </div>
+        <h3 class="project-title">Doctor Booking App</h3>
+        <p class="project-desc">Full-stack doctor appointment booking platform with Firebase auth, real-time Firestore,
+          light/dark mode, and a fully responsive modern UI.</p>
+        <div class="project-tech">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">Firebase</span>
+          <span class="tech-tag">Firestore</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="project-link github">⚡ Code</a>
+          <a href="#" target="_blank" rel="noopener" class="project-link live">🚀 Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-1" data-category="Dashboard"
+        style="--card-accent: linear-gradient(90deg, #3b82f6, #2563eb);">
+        <div class="project-header">
+          <div class="project-icon">📊</div>
+          <span class="project-featured-badge">Featured</span>
+        </div>
+        <h3 class="project-title">Admin Dashboard</h3>
+        <p class="project-desc">Powerful admin dashboard with data visualization, user management, analytics charts, and
+          clean dark/light theme. Built for performance and scalability.</p>
+        <div class="project-tech">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Chart.js</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="project-link github">⚡ Code</a>
+          <a href="" target="_blank" rel="noopener" class="project-link live">🚀 Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-2" data-category="E-Commerce"
+        style="--card-accent: linear-gradient(90deg, #f59e0b, #d97706);">
+        <div class="project-header">
+          <div class="project-icon">🛍️</div>
+          <span class="project-featured-badge">Featured</span>
+        </div>
+        <h3 class="project-title">Nova Shop</h3>
+        <p class="project-desc">Modern e-commerce frontend with product listings, cart management, filter functionality,
+          and sleek responsive design optimized for exceptional UX.</p>
+        <div class="project-tech">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">Context API</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="project-link github">⚡ Code</a>
+          <a href="" target="_blank" rel="noopener" class="project-link live">🚀 Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3" data-category="Landing Page"
+        style="--card-accent: linear-gradient(90deg, #ef4444, #dc2626);">
+        <div class="project-header">
+          <div class="project-icon">👟</div>
+        </div>
+        <h3 class="project-title">Nike Landing Page</h3>
+        <p class="project-desc">Stunning, pixel-perfect Nike product landing page with smooth animations and a premium
+          feel. Demonstrates advanced Tailwind CSS techniques.</p>
+        <div class="project-tech">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">JavaScript</span>
+        </div>
+        <div class="project-links">
+          <a href="" target="_blank" rel="noopener" class="project-link github">⚡ Code</a>
+          <a href="#" target="_blank" rel="noopener" class="project-link live">🚀 Live Demo</a>
+        </div>
+      </div>
+
+      <!-- AI Projects -->
+      <div class="project-card reveal reveal-delay-4" data-category="AI"
+        style="--card-accent: linear-gradient(90deg, #8b5cf6, #7c3aed);">
+        <div class="project-header">
+          <div class="project-icon">🎨</div>
+        </div>
+        <h3 class="project-title">Tasteful Themes Pro</h3>
+        <p class="project-desc">AI-assisted theme customization platform with dynamic color palettes, typography
+          previews, and real-time theme generation for designers.</p>
+        <div class="project-tech">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Lovable AI</span>
+          <span class="tech-tag">Tailwind CSS</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="project-link github">⚡ Code</a>
+          <a href="#" target="_blank" rel="noopener" class="project-link live">🚀 Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-5" data-category="AI"
+        style="--card-accent: linear-gradient(90deg, #34d399, #10b981);">
+        <div class="project-header">
+          <div class="project-icon">💰</div>
+        </div>
+        <h3 class="project-title">Expense Tracker</h3>
+        <p class="project-desc">Smart expense tracking app with categorized spending, monthly summaries, visual charts,
+          and budget alerts in a clean minimal interface.</p>
+        <div class="project-tech">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Lovable AI</span>
+          <span class="tech-tag">Firebase</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="project-link github">⚡ Code</a>
+          <a href="#" target="_blank" rel="noopener" class="project-link live">🚀 Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-category="AI"
+        style="--card-accent: linear-gradient(90deg, #f59e0b, #d97706);">
+        <div class="project-header">
+          <div class="project-icon">📈</div>
+        </div>
+        <h3 class="project-title">Insight Hub Dashboard</h3>
+        <p class="project-desc">Comprehensive analytics dashboard with real-time data visualization, KPI tracking, and
+          interactive charts in an enterprise-grade UI.</p>
+        <div class="project-tech">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Lovable AI</span>
+          <span class="tech-tag">Chart.js</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="project-link github">⚡ Code</a>
+          <a href="#" target="_blank" rel="noopener" class="project-link live">🚀 Live Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     JOURNEY (Education + Experience)
+============================================================ -->
+  <section id="journey">
+    <div class="section-badge reveal">My Journey</div>
+    <h2 class="section-title reveal reveal-delay-1">Education &<br><span class="gradient-text">Experience</span></h2>
+
+    <div class="timeline-grid">
+      <!-- Education -->
+      <div class="reveal reveal-delay-2">
+        <div class="timeline-title">🎓 Education</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-period">2022 – 2025</div>
+            <div class="timeline-role">Bachelor of Computer Applications (BCA)</div>
+            <div class="timeline-org">Uttarakhand Open University · Uttarakhand, India</div>
+            <div class="timeline-desc">Core CS fundamentals: Data Structures, Web Development, DBMS, Software
+              Engineering. Focused on practical frontend development.</div>
+            <div class="timeline-tags">
+              <span class="timeline-tag">Data Structures</span>
+              <span class="timeline-tag">Web Dev</span>
+              <span class="timeline-tag">DBMS</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-period">2020 – 2022</div>
+            <div class="timeline-role">Intermediate (12th) — Science</div>
+            <div class="timeline-org">UP Board · Uttarakhand, India</div>
+            <div class="timeline-desc">Higher secondary with Science stream. Built strong analytical and problem-solving
+              foundations.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="reveal reveal-delay-3">
+        <div class="timeline-title">💼 Experience</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-period">2023 – Present</div>
+            <div class="timeline-role">Freelance Frontend Developer</div>
+            <div class="timeline-org">Self-Employed</div>
+            <div class="timeline-desc">Designing and developing responsive, modern web apps for clients. Delivered
+              e-commerce platforms, dashboards, and landing pages.</div>
+            <div class="timeline-tags">
+              <span class="timeline-tag">React.js</span>
+              <span class="timeline-tag">Tailwind CSS</span>
+              <span class="timeline-tag">Firebase</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-period">2022 – Present</div>
+            <div class="timeline-role">Frontend Developer (Self Projects)</div>
+            <div class="timeline-org">TripathiDevLab</div>
+            <div class="timeline-desc">Running TripathiDevLab — a personal dev lab building, experimenting with, and
+              deploying full-featured web apps. Sharing on YouTube & social media.</div>
+            <div class="timeline-tags">
+              <span class="timeline-tag">React.js</span>
+              <span class="timeline-tag">GSAP</span>
+              <span class="timeline-tag">AI Tools</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div style="margin-top: 60px;">
+      <div class="timeline-title reveal reveal-delay-1">🏆 Certifications</div>
+      <div class="cert-grid">
+        <div class="cert-card reveal reveal-delay-2" style="--cert-color: #10b981;">
+          <div class="cert-icon">📜</div>
+          <div>
+            <div class="cert-name">React.js — The Complete Guide</div>
+            <div class="cert-meta">Udemy · 2024</div>
+          </div>
+        </div>
+        <div class="cert-card reveal reveal-delay-3" style="--cert-color: #3b82f6;">
+          <div class="cert-icon">🏅</div>
+          <div>
+            <div class="cert-name">JavaScript Algorithms & Data Structures</div>
+            <div class="cert-meta">freeCodeCamp · 2023</div>
+          </div>
+        </div>
+        <div class="cert-card reveal reveal-delay-4" style="--cert-color: #f59e0b;">
+          <div class="cert-icon">🎖️</div>
+          <div>
+            <div class="cert-name">Responsive Web Design</div>
+            <div class="cert-meta">freeCodeCamp · 2023</div>
+          </div>
+        </div>
+        <div class="cert-card reveal reveal-delay-5" style="--cert-color: #8b5cf6;">
+          <div class="cert-icon">⭐</div>
+          <div>
+            <div class="cert-name">Tailwind CSS Mastery</div>
+            <div class="cert-meta">Online Course · 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     CONTACT
+============================================================ -->
+  <section id="contact">
+    <div class="section-badge reveal">Get In Touch</div>
+    <h2 class="section-title reveal reveal-delay-1">Let's Work<br><span class="gradient-text">Together</span></h2>
+    <p class="section-sub reveal reveal-delay-2">Have a project in mind or want to collaborate? I'd love to hear from
+      you. Let's create something amazing together!</p>
+
+    <div class="contact-grid">
+      <div class="contact-info-card reveal reveal-delay-2">
+        <div class="contact-info-title">Contact Information</div>
+        <div class="contact-info-sub">Feel free to reach out through any of these channels. I typically respond within
+          24 hours.</div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-val">tripathipawan8705@gmail.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div>
+              <div class="contact-item-label">Phone</div>
+              <div class="contact-item-val">+91 6396096431</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Location</div>
+              <div class="contact-item-val">Uttarakhand, India</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">💼</div>
+            <div>
+              <div class="contact-item-label">Status</div>
+              <div class="contact-item-val" style="color: var(--accent3);">Open to Opportunities ✅</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-card reveal reveal-delay-3">
+        <div id="form-success" class="form-success-msg">
+          ✅ Message saved! I'll get back to you within 24 hours. Thanks for reaching out, Pawan!
+        </div>
+        <form id="contact-form" novalidate>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="f-name">Your Name *</label>
+              <input type="text" id="f-name" class="form-input" placeholder="John Doe" autocomplete="name" />
+              <div class="form-error" id="f-name-err">Please enter your name</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-email">Email Address *</label>
+              <input type="email" id="f-email" class="form-input" placeholder="john@example.com" autocomplete="email" />
+              <div class="form-error" id="f-email-err">Please enter a valid email</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-subject">Subject</label>
+            <input type="text" id="f-subject" class="form-input"
+              placeholder="Project Collaboration / Job Opportunity" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-message">Message *</label>
+            <textarea id="f-message" class="form-textarea"
+              placeholder="Tell me about your project, idea, or opportunity..."></textarea>
+            <div class="form-error" id="f-msg-err">Please write a message</div>
+            <div class="form-save-indicator" id="save-indicator"></div>
+          </div>
+          <button type="submit" class="form-submit neu-btn">
+            <span>Send Message</span>
+            <span>🚀</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 48px;">
+      <div class="visitor-chip reveal">
+        👁️ <span id="visitor-count">Loading...</span> visitors have viewed this portfolio
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     FOOTER
+============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-name">Ramu Tripathi</div>
+      <p class="footer-copy">
+        Crafted with <span>♥</span> and lots of ☕ · <span>2025</span> · All rights reserved
+      </p>
+      <p class="footer-copy" style="margin-top: 8px;">
+        <a href="mailto:tripathipawan8705@gmail.com" style="color: var(--accent2);">tripathipawan8705@gmail.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button id="scroll-top" aria-label="Scroll to top" title="Back to top">↑</button>
+  <script src="./script.js"></script>
+</body>
+
+</html>
